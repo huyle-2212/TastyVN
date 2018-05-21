@@ -1,6 +1,7 @@
 package com.example.huyle.tastyvn;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.huyle.tastyvn.Detail.BeverageDetail;
+import com.example.huyle.tastyvn.Detail.MainCourseDetail;
+import com.example.huyle.tastyvn.Interface.ItemClickListener;
 import com.example.huyle.tastyvn.Model.Beverage;
 import com.example.huyle.tastyvn.ViewHolder.FoodViewHolder;
 import com.example.huyle.tastyvn.Model.Beverage;
@@ -104,6 +108,14 @@ public class Beverages extends Fragment {
                 Picasso.with(getContext()).load(model.getImage())
                         .into(viewHolder.imageView);
                 final Beverage clickItem = model;
+                viewHolder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Intent foodDetail = new Intent(Beverages.this.getActivity(), BeverageDetail.class);
+                        foodDetail.putExtra("FoodId",adapter.getRef(position).getKey());
+                        startActivity(foodDetail);
+                    }
+                });
             }
         };
         recycler_menu.setAdapter(adapter);
