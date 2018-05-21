@@ -15,14 +15,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements MainCourse.OnFragmentInteractionListener, Favourites.OnFragmentInteractionListener, Desserts.OnFragmentInteractionListener, Beverages.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+
+    String tableAddr;
+    TextView table_addr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle dataReceive = getIntent().getExtras();
+        if(dataReceive!=null) {
+            tableAddr = dataReceive.getString("table_addr");
+        }
 
         TabLayout tablayout = (TabLayout)findViewById(R.id.tablayout);
 //        tablayout.addTab(tablayout.newTab().setText("Main Course"));
