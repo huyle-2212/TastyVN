@@ -27,6 +27,10 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".WelcomeMainActivity" />
+        <activity android:name=".Detail.MainCourseDetail" />
+        <activity android:name=".Detail.FavouriteDetail" />
+        <activity android:name=".Detail.DessertDetail" />
+        <activity android:name=".Detail.BeverageDetail" />
     </application>
 
 </manifest>

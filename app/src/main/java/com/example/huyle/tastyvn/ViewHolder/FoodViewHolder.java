@@ -19,7 +19,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public TextView txtMenuName;
     public ImageView imageView;
 
-    private ItemClickListener itemClickListener;
+    public ItemClickListener itemClickListener;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
