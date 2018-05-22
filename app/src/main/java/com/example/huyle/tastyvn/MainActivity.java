@@ -126,10 +126,17 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_menu) {
             // Handle the camera action
         } else if (id == R.id.nav_cart) {
+            Intent cart = new Intent(MainActivity.this, Cart.class);
+            startActivity(cart);
 
         } else if (id == R.id.nav_orders) {
+            Intent order = new Intent(MainActivity.this, OrderStatus.class);
+            startActivity(order);
 
         } else if (id == R.id.nav_log_out) {
+            Intent signout = new Intent(MainActivity.this, WelcomeMainActivity.class);
+            signout.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(signout);
 
         }
 
