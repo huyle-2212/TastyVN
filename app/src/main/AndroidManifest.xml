@@ -31,7 +31,8 @@
         <activity android:name=".Detail.FavouriteDetail" />
         <activity android:name=".Detail.DessertDetail" />
         <activity android:name=".Detail.BeverageDetail" />
-        <activity android:name=".QRCode"></activity>
+        <activity android:name=".QRCode" />
+        <activity android:name=".Cart"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.huyle.tastyvn.Database.Database;
 import com.example.huyle.tastyvn.Model.Main_Course;
+import com.example.huyle.tastyvn.Model.Order;
 import com.example.huyle.tastyvn.R;
 import com.example.huyle.tastyvn.ViewHolder.FoodViewHolder;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,21 @@ public class MainCourseDetail extends AppCompatActivity {
         foods = database.getReference("Main Course");
         numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
         btnCart = (FloatingActionButton)findViewById(R.id.btnCart);
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Database(getBaseContext()).addToCart(new Order(
+                        foodId,
+                        currentFood.getName(),
+                        numberButton.getNumber(),
+                        currentFood.getPrice()
+
+                ));
+
+                Toast.makeText(MainCourseDetail.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         food_name = (TextView)findViewById(R.id.food_name);
         food_description = (TextView)findViewById(R.id.food_description);
