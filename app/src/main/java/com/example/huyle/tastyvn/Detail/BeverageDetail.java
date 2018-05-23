@@ -54,7 +54,8 @@ public class BeverageDetail extends AppCompatActivity {
                         foodId,
                         currentFood.getName(),
                         numberButton.getNumber(),
-                        currentFood.getPrice()
+                        currentFood.getPrice(),
+                        currentFood.getImage()
 
                 ));
 

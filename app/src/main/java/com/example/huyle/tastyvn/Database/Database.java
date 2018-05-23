@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Database extends SQLiteAssetHelper {
     private static final String DB_NAME = "TTVN.db";
-    private static final int DB_VER = 1;
+    private static final int DB_VER = 2;
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VER);
     }
@@ -23,7 +23,7 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ProductId","ProductName","Quantity","Price"};
+        String[] sqlSelect = {"ProductId","ProductName","Quantity","Price","Image"};
         String sqlTable = "OrderDetail";
         qb.setTables(sqlTable);
         Cursor c = qb.query(db,sqlSelect,null,null,null,null,null);
@@ -34,7 +34,8 @@ public class Database extends SQLiteAssetHelper {
                 result.add(new Order(c.getString(c.getColumnIndex("ProductId")),
                         c.getString(c.getColumnIndex("ProductName")),
                         c.getString(c.getColumnIndex("Quantity")),
-                        c.getString(c.getColumnIndex("Price"))
+                        c.getString(c.getColumnIndex("Price")),
+                        c.getString(c.getColumnIndex("Image"))
                 ));
             }while (c.moveToNext());
 
@@ -44,11 +45,12 @@ public class Database extends SQLiteAssetHelper {
 
     public void addToCart(Order order){
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("INSERT INTO OrderDetail(ProductId, ProductName, Quantity, Price) VALUES ('%s','%s','%s','%s');",
+        String query = String.format("INSERT INTO OrderDetail(ProductId, ProductName, Quantity, Price, Image) VALUES ('%s','%s','%s','%s','%s');",
                 order.getProductId(),
                 order.getProductName(),
                 order.getQuantity(),
-                order.getPrice());
+                order.getPrice(),
+                order.getImage());
         db.execSQL(query);
 
     }
