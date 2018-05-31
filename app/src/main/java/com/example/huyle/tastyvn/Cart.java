@@ -79,7 +79,7 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Request request = new Request(edtAddress.getText().toString(), txtTotalPrice.getText().toString(),cart);
-                requests.child(String.valueOf(System.currentTimeMillis())).setValue(request);
+                requests.child(String.valueOf(edtAddress.getText().toString())).setValue(request);
                 new Database(getBaseContext()).cleanCart();
                 Toast.makeText(Cart.this, "Thank you for your order", Toast.LENGTH_SHORT).show();
                 finish();
