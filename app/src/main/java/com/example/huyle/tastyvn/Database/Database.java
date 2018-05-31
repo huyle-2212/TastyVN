@@ -19,6 +19,20 @@ public class Database extends SQLiteAssetHelper {
         super(context, DB_NAME, null, DB_VER);
     }
 
+    public boolean checkFoodExists(String foodId){
+        boolean flag = false;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        String SQLQuery = String.format("Select * From OrderDetail WHERE ProductId='%s'",foodId);
+        cursor = db.rawQuery(SQLQuery,null);
+        if(cursor.getCount()>0)
+            flag = true;
+        else
+            flag = false;
+        cursor.close();
+        return flag;
+    }
+
     public List<Order> getCarts(){
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
@@ -61,4 +75,17 @@ public class Database extends SQLiteAssetHelper {
         db.execSQL(query);
 
     }
+
+    public void updateCart(Order order){
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("UPDATE OrderDetail SET Quantity= '%s' WHERE ProductId='%s'", order.getQuantity(),order.getProductId());
+        db.execSQL(query);
+    }
+
+    public void increaseCart(String foodId){
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("UPDATE OrderDetail SET Quantity= Quantity+1 WHERE ProductId='%s'", foodId);
+        db.execSQL(query);
+    }
+
 }

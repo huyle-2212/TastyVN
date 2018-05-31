@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,16 @@ import com.example.huyle.tastyvn.ViewHolder.FoodViewHolder;
 import com.example.huyle.tastyvn.Model.Main_Course;
 import com.example.huyle.tastyvn.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -50,6 +59,10 @@ public class MainCourse extends Fragment {
     RecyclerView.LayoutManager layoutManager;
 
     FirebaseRecyclerAdapter<Main_Course,FoodViewHolder> adapter;
+    FirebaseRecyclerAdapter<Main_Course,FoodViewHolder> searchAdapter;
+
+    List<String> suggestList = new ArrayList<>();
+    MaterialSearchBar materialSearchBar;
 
     public MainCourse() {
         // Required empty public constructor

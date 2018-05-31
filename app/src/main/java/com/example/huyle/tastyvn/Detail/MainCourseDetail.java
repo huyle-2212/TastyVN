@@ -33,6 +33,7 @@ public class MainCourseDetail extends AppCompatActivity {
     DatabaseReference foods;
 
     String foodId = "";
+    boolean Exist;
 
 
 
@@ -43,24 +44,32 @@ public class MainCourseDetail extends AppCompatActivity {
         setContentView(R.layout.activity_main_course_detail);
         database = FirebaseDatabase.getInstance();
         foods = database.getReference("Main Course");
-        numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
-        btnCart = (FloatingActionButton)findViewById(R.id.btnCart);
+        numberButton = (ElegantNumberButton) findViewById(R.id.number_button);
+        btnCart = (FloatingActionButton) findViewById(R.id.btnCart);
+        Exist = new Database(getBaseContext()).checkFoodExists(foodId);
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Database(getBaseContext()).addToCart(new Order(
-                        foodId,
-                        currentFood.getName(),
-                        numberButton.getNumber(),
-                        currentFood.getPrice(),
-                        currentFood.getImage()
+                if (!Exist) {
+                    new Database(getBaseContext()).addToCart(new Order(
+                            foodId,
+                            currentFood.getName(),
+                            numberButton.getNumber(),
+                            currentFood.getPrice(),
+                            currentFood.getImage()
 
-                ));
+                    ));
 
+//                        Toast.makeText(MainCourseDetail.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                } else {
+                    new Database(getBaseContext()).increaseCart(foodId);
+                }
                 Toast.makeText(MainCourseDetail.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+
             }
         });
+
 
         food_name = (TextView)findViewById(R.id.food_name);
         food_description = (TextView)findViewById(R.id.food_description);
