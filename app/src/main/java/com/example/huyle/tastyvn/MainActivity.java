@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent cartIntent = new Intent(MainActivity.this, Cart.class);
+//                cartIntent.putExtra("table_addr",tableAddr);
                 startActivity(cartIntent);
             }
         });

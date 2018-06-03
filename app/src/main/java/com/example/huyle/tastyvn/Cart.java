@@ -39,10 +39,18 @@ public class Cart extends AppCompatActivity {
 
     CartAdapter adapter;
 
+    String tableAddr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        Bundle dataReceive = getIntent().getExtras();
+        if(dataReceive!=null) {
+            tableAddr = dataReceive.getString("table_addr");
+        }
+
         database = FirebaseDatabase.getInstance();
         requests = database.getReference("Requests");
 
@@ -68,6 +76,7 @@ public class Cart extends AppCompatActivity {
     private void showAlertDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(Cart.this);
         alertDialog.setTitle("One more step");
+        alertDialog.setMessage("Are you certain with your order? ");
         alertDialog.setMessage("Enter your table number: ");
 
         final EditText edtAddress = new EditText(Cart.this);
@@ -78,6 +87,8 @@ public class Cart extends AppCompatActivity {
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+//                Request request = new Request(tableAddr, txtTotalPrice.getText().toString(),cart);
+//                requests.child(String.valueOf(tableAddr)).setValue(request);
                 Request request = new Request(edtAddress.getText().toString(), txtTotalPrice.getText().toString(),cart);
                 requests.child(String.valueOf(edtAddress.getText().toString())).setValue(request);
                 new Database(getBaseContext()).cleanCart();
